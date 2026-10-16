@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_category_user,category.user,model_ensia_dms_category,ensia_dms.group_dms_user,1,0,0,0
+access_category_manager,category.manager,model_ensia_dms_category,ensia_dms.group_dms_manager,1,1,1,1
+
+access_department_user,department.user,model_ensia_dms_department,ensia_dms.group_dms_user,1,0,0,0
+access_department_manager,department.manager,model_ensia_dms_department,ensia_dms.group_dms_manager,1,1,1,1
+
+access_document_user,document.user,model_ensia_dms_document,ensia_dms.group_dms_user,1,1,1,0
+access_document_manager,document.manager,model_ensia_dms_document,ensia_dms.group_dms_manager,1,1,1,1

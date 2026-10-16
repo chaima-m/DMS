@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_document_list" model="ir.ui.view">
+        <field name="name">ensia.dms.document.list</field>
+        <field name="model">ensia.dms.document</field>
+        <field name="arch" type="xml">
+            <tree string="Documents" decoration-muted="state == 'archived'" decoration-success="state == 'confirmed'">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="department_ids" widget="many2many_tags"/>
+                <field name="owner_id"/>
+                <field name="state" widget="badge" decoration-success="state == 'confirmed'" decoration-warning="state == 'draft'"/>
+                <field name="attachment_count" string="Files"/>
+                <field name="create_date" string="Created"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_document_form" model="ir.ui.view">
+        <field name="name">ensia.dms.document.form</field>
+        <field name="model">ensia.dms.document</field>
+        <field name="arch" type="xml">
+            <form string="Document">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_draft" string="Reset to Draft" type="object" attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_attachments" type="object" class="oe_stat_button" icon="fa-paperclip">
+                            <field name="attachment_count" widget="statinfo" string="Files"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Document Title..."/></h1>
+                    </div>
+                    <group>
+                        <group string="Classification">
+                            <field name="category_id"/>
+                            <field name="department_ids" widget="many2many_tags"/>
+                        </group>
+                        <group string="Details">
+                            <field name="owner_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_document_kanban" model="ir.ui.view">
+        <field name="name">ensia.dms.document.kanban</field>
+        <field name="model">ensia.dms.document</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="category_id" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="state"/>
+                <field name="owner_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click" style="border-left: 4px solid #875A7B; padding: 10px;">
+                            <div class="oe_kanban_content">
+                                <strong><field name="name"/></strong>
+                                <div><span class="text-muted"><field name="category_id"/></span></div>
+                                <div class="o_kanban_record_bottom">
+                                    <field name="state" widget="label_selection" options="{'classes': {'draft': 'default', 'confirmed': 'success'}}"/>
+                                    <img t-att-src="kanban_image('res.users', 'image_128', record.owner_id.raw_value)" class="oe_kanban_avatar" width="24" height="24" alt="Owner" align="right"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_document_search" model="ir.ui.view">
+        <field name="name">ensia.dms.document.search</field>
+        <field name="model">ensia.dms.document</field>
+        <field name="arch" type="xml">
+            <search string="Search Documents">
+                <field name="name" string="Title"/>
+                <field name="category_id"/>
+                <field name="department_ids"/>
+                <field name="owner_id"/>
+                <filter string="Draft" name="filter_draft" domain="[('state','=','draft')]"/>
+                <filter string="Confirmed" name="filter_confirmed" domain="[('state','=','confirmed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Category" name="group_category" context="{'group_by': 'category_id'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_document_list" model="ir.actions.act_window">
+        <field name="name">Documents</field>
+        <field name="res_model">ensia.dms.document</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_document_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first document!</p>
+        </field>
+    </record>
+
+    <record id="action_category_list" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">ensia.dms.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_department_list" model="ir.actions.act_window">
+        <field name="name">Departments</field>
+        <field name="res_model">ensia.dms.department</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

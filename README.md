@@ -1,13 +1,9 @@
-# DMS --- Document Management System
+# DMS : Document Management System
 
 DMS is a document-management project organized as a set of services,
-with a React-based web interface and an Odoo add-on. The repository also
+with a React-based web interface and . The repository also
 includes translation-related Python services and a Docker Compose
 configuration.
-
-> **Project status:** Source code has been published to GitHub. The
-> application has not been verified as fully runnable in this
-> environment.
 
 ## Contents
 
@@ -18,7 +14,7 @@ configuration.
 -   [Configuration](#configuration)
 -   [Run with Docker Compose](#run-with-docker-compose)
 -   [Development notes](#development-notes)
--   [Security](#security)
+
 
 ## Architecture
 
@@ -48,7 +44,7 @@ The repository contains these components:
                                                      writing translation
                                                      output
 
-  Odoo add-on             `odoo/addons/ensia_dms/`   DMS integration for Odoo
+  Odoo add-on             `odoo/addons/`   DMS integration for Odoo
 
   Compose configuration   `docker-compose.yml`       Multi-container
                                                      development
@@ -133,9 +129,7 @@ docker compose config
 docker compose up --build
 ```
 
-These commands are provided as a starting point; successful startup has
-not been verified. Some services may require additional configuration or
-infrastructure.
+
 
 To stop the stack:
 
@@ -155,18 +149,5 @@ docker compose down
     available.
 -   Build outputs and dependency directories should remain untracked.
 
-## Security
 
-This is a public repository. Before adding changes, ensure that:
 
--   API keys, passwords, tokens, private keys, and production
-    configuration are never committed.
--   Real credentials are stored locally or in an appropriate secrets
-    manager.
--   Any sample configuration uses placeholder values only.
--   Dependencies and service configurations are reviewed before
-    deploying the application.
-
-## Repository
-
-GitHub: <https://github.com/chaima-m/DMS>

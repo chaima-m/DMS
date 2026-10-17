@@ -5,6 +5,9 @@ with a React-based web interface and . The repository also
 includes translation-related Python services and a Docker Compose
 configuration.
 
+<img width="1284" height="2282" alt="Dms Architecture Diagram Mekhloufi Chaima G1" src="https://github.com/user-attachments/assets/64c6789a-0765-4030-9f80-35d362e36569" />
+
+
 ## Contents
 
 -   [Architecture](#architecture)
